@@ -15,8 +15,6 @@ fn process(input: &str) -> u32 {
             let mut first: Option<char> = None;
             let mut last: Option<char> = None;
 
-            let mut res = String::new();
-
             for c in line.chars() {
                 if c.is_ascii_digit() {
                     if first.is_none() {
@@ -27,6 +25,8 @@ fn process(input: &str) -> u32 {
                 }
             }
 
+            let mut res = String::new();
+
             if let Some(c) = first {
                 res.push(c);
                 if last.is_none() {
@@ -36,6 +36,7 @@ fn process(input: &str) -> u32 {
             if let Some(c) = last {
                 res.push(c);
             }
+
             res.parse::<u32>().unwrap()
         })
         .sum()

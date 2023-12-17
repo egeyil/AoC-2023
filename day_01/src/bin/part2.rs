@@ -12,52 +12,29 @@ fn process(input: &str) -> u32 {
     input
         .lines()
         .map(|line| {
-            let mut first: Option<char> = None;
-            let mut last: Option<char> = None;
-
-            let mut res = String::new();
-
             let mut it = (0..line.len()).filter_map(|index| {
-                // println!("{}", &line[index..]);
                 match &line[index..] {
-                    line if line.starts_with("one") => Some('1'),
-                    line if line.starts_with("two") => Some('2'),
-                    line if line.starts_with("three") => Some('3'),
-                    line if line.starts_with("four") => Some('4'),
-                    line if line.starts_with("five") => Some('5'),
-                    line if line.starts_with("six") => Some('6'),
-                    line if line.starts_with("seven") => Some('7'),
-                    line if line.starts_with("eight") => Some('8'),
-                    line if line.starts_with("nine") => Some('9'),
+                    line if line.starts_with("one") => Some(1),
+                    line if line.starts_with("two") => Some(2),
+                    line if line.starts_with("three") => Some(3),
+                    line if line.starts_with("four") => Some(4),
+                    line if line.starts_with("five") => Some(5),
+                    line if line.starts_with("six") => Some(6),
+                    line if line.starts_with("seven") => Some(7),
+                    line if line.starts_with("eight") => Some(8),
+                    line if line.starts_with("nine") => Some(9),
                     line => {
-                        // let mut res: Option<char> = None;
-                        // for c in line.chars() {
-                        //     if c.is_ascii_digit() {
-                        //         res = Some(c);
-                        //     }
-                        // }
-                        //
-                        // res
-                        line.chars().next()
+                        line.chars().next().unwrap().to_digit(10)
                     }
                 }
             });
 
-            first = it.next();
-            last = it.last();
+            let first = it.next().expect("should be a number");
 
-
-            if let Some(c) = first {
-                res.push(c);
-                if last.is_none() {
-                    res.push(c);
-                }
+            match it.last() {
+                Some(num) => first * 10 + num,
+                None => first * 10 + first,
             }
-            if let Some(c) = last {
-                res.push(c);
-            }
-            // println!("{res}");
-            res.parse::<u32>().unwrap()
         })
         .sum()
 }
