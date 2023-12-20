@@ -82,9 +82,9 @@ fn calc_possible_games(input: &str, rgb: Subset) -> Vec<u32> {
             let impossible_sets: Vec<&Subset> = game.subsets
                 .iter()
                 .filter(|subset| {
-                    subset.red >= rgb.red ||
-                        subset.blue >= rgb.blue ||
-                        subset.green >= rgb.green
+                    subset.red > rgb.red ||
+                        subset.blue > rgb.blue ||
+                        subset.green > rgb.green
                 })
                 .collect();
 
